@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Card = ({ authorName, headline, authorPhoto }) => {
+const Card = (article) => {
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -38,9 +38,9 @@ const Card = ({ authorName, headline, authorPhoto }) => {
   imgContainer.classList.add("img-container");
 
   //headline, authorPhoto, authorName
-  headLine.textContent = headline;
-  authorPic.src = authorPhoto;
-  authorNameb.textContent = authorName;
+  headLine.textContent = article.headline;
+  authorPic.src = article.authorPhoto;
+  authorNameb.textContent = article.authorName;
 
   return cardDiv;
 };
@@ -51,16 +51,16 @@ const cardAppender = (selector) => {
   // Implement this function that takes a css selector as its only argument.
   // It should obtain articles from this endpoint: `http://localhost:5000/api/articles` (test it in Postman/HTTPie!).
   const entryPoint = document.querySelector(selector);
-  axios
-    .get("http://localhost:5000/api/articles")
-    .then((res) => {
-      console.log(res.data);
-      const newCard = Card(res.data.articles);
-      entryPoint.appendChild(newCard);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+
+  // axios
+  //   .get("http://localhost:5000/api/articles")
+  //   .then((response) => {
+  //     const articleMaker = Card(response.data);
+  //     entryPoint.appendChild(articleMaker);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.

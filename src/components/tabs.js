@@ -44,13 +44,15 @@ const tabsAppender = (selector) => {
   // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it in Postman/HTTPie!).
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
-  const entryPoint = document.querySelector("selector");
-  axios
+  const entryPoint = document.querySelector(selector);
+
+  const someVar = axios
     .get(`http://localhost:5000/api/topics`)
     .then((res) => {
-      console.log(res.data);
-      const newCard = Tabs(res.data.topics);
-      entryPoint.appendChild(newCard);
+      console.log(res.data.topics);
+      const tabMaker = Tabs(res.data.topics);
+      console.log(tabMaker);
+      entryPoint.appendChild(tabMaker);
     })
     .catch((err) => {
       console.log(err);
