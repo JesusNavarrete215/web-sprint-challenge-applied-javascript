@@ -1,4 +1,6 @@
-const Card = (article) => {
+import axios from "axios";
+
+const Card = ({ authorName, headline, authorPhoto }) => {
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -22,13 +24,13 @@ const Card = (article) => {
   const authorContainer = document.createElement("div");
   const imgContainer = document.createElement("div");
   const authorPic = document.createElement("img");
-  const authorName = document.createElement("span");
+  const authorNameb = document.createElement("span");
 
   cardDiv.appendChild(headLine);
   cardDiv.appendChild(authorContainer);
   authorContainer.appendChild(imgContainer);
   imgContainer.appendChild(authorPic);
-  authorContainer.appendChild(authorName);
+  authorContainer.appendChild(authorNameb);
 
   cardDiv.classList.add("card");
   headLine.classList.add("headline");
@@ -36,18 +38,28 @@ const Card = (article) => {
   imgContainer.classList.add("img-container");
 
   //headline, authorPhoto, authorName
-  headLine.textContent = article.headline;
-  authorPic.src = article.authorPhoto;
-  authorName.textContent = article.authorName;
+  headLine.textContent = headline;
+  authorPic.src = authorPhoto;
+  authorNameb.textContent = authorName;
 
   return cardDiv;
 };
-
+const entryPoint = document.querySelector(".cards-container");
 const cardAppender = (selector) => {
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
   // It should obtain articles from this endpoint: `http://localhost:5000/api/articles` (test it in Postman/HTTPie!).
+  const articalData = axios
+    .get("http://localhost:5000/api/articles")
+    .then((res) => {
+      console.log(res.data);
+      const newCard = Card(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log(articalData);
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
