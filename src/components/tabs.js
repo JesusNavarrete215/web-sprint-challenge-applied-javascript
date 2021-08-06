@@ -35,7 +35,6 @@ const Tabs = (topics) => {
 
   return topicDiv;
 };
-const entryPoint = document.querySelector("tabs-container");
 
 const tabsAppender = (selector) => {
   // TASK 4
@@ -45,6 +44,7 @@ const tabsAppender = (selector) => {
   // It should obtain topics from this endpoint: `http://localhost:5000/api/topics` (test it in Postman/HTTPie!).
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
+  const entryPoint = document.querySelector("selector");
   axios
     .get(`http://localhost:5000/api/topics`)
     .then((res) => {

@@ -32,13 +32,13 @@ const Header = (title, date, temp) => {
   //return the card
   return headerDiv;
 };
-const addCard = document.querySelector(".header-container");
 
 const headerAppender = (selector) => {
   // TASK 2
   // ---------------------
   // Implement this function taking a css selector as its only argument.
   // It should create a header using the Header component above, passing arguments of your choosing.
+  const addCard = document.querySelector(selector);
   const newCard = Header("Lambda Times", "Jan 1, 2021", "71º");
   // It should append the header to the element in the DOM that matches the given selector.
   addCard.appendChild(newCard);
