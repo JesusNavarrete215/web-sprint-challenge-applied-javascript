@@ -39,7 +39,7 @@ const Card = (article) => {
 
   //headline, authorPhoto, authorName
   headLine.textContent = article.headline;
-  authorPic.src = article.authorPhoto;
+  authorPic.src = `${article.authorPhoto}`;
   authorNameb.textContent = article.authorName;
 
   return cardDiv;
@@ -52,16 +52,22 @@ const cardAppender = (selector) => {
   // It should obtain articles from this endpoint: `http://localhost:5000/api/articles` (test it in Postman/HTTPie!).
   const entryPoint = document.querySelector(selector);
 
-  // axios
-  //   .get("http://localhost:5000/api/articles")
-  //   .then((response) => {
-  //     const articleMaker = Card(response.data);
-  //     entryPoint.appendChild(articleMaker);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
+  axios
+    .get("http://localhost:5000/api/articles")
+    .then((res) => {
+      console.log(res.data.articles);
+      const objectData = res.data.articles.javascript;
+      console.log(objectData);
+      const array = Array.from(objectData);
+      console.log(array);
+      array.forEach((item) => {
+        const newCard = Card(item);
+        entryPoint.appendChild(newCard);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
